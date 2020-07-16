@@ -1,7 +1,7 @@
 FROM spencerfirmllc/mysql
 MAINTAINER git@ksa.llc
 
-ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip
+ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip suitecrm.zip
 
 RUN MySQL --user=root --password="2v3%ZRe#vHhG" --connect-expired-password -Bse "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Password123';" & \
 MySQL --user=root --password="Password123" -Bse "CREATE DATABASE suitecrm CHARACTER SET utf8 COLLATE utf8_bin;" & \
