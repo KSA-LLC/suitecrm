@@ -8,7 +8,8 @@
 FROM nanoserver/mysql
 MAINTAINER git@ksa.llc
 
-ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm/suitecrm-7.11.zip suitecrm.zip
+# ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm/suitecrm-7.11.zip suitecrm.zip
+ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip
 ADD https://getcomposer.org/download/1.10.8/composer.phar composer.phar
 
 RUN MySQL --user=root --password="2v3%ZRe#vHhG" --connect-expired-password -Bse "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Password123';" & \
@@ -20,13 +21,27 @@ MySQL --user=root --password="Password123" -Bse "GRANT ALL PRIVILEGES ON `suitec
 MySQL --user=root --password="Password123" -Bse "SHOW DATABASES;"
 
 RUN powershell -Command \
-  New-Item -Path "c:\" -Name "bin" -ItemType "directory" ; \
+  New-Item -ItemType "directory" -Path "c:\bin" ; \
   Copy-Item -Path c:\composer.phar -Destination c:\bin\composer.phar ; \
   Expand-Archive -Path c:\suitecrm.zip -DestinationPath C:\inetpub\wwwroot ; \
-  Rename-Item -Path C:\inetpub\wwwroot\SuiteCRM-master -NewName suitecrm ; \
+  Rename-Item -Path C:\inetpub\wwwroot\dunbarton -NewName "suitecrm" ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /INHERITANCE:R ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /T /C /L /Q /GRANT BUILTIN\IIS_IUSRS:F ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /T /GRANT Administrators:F ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /setowner BUILTIN\IIS_IUSRS /T /C /L /Q
 RUN powershell -command rm -Recurse c:\*.zip -Force
 RUN powershell -command rm -Recurse c:\*.phar -Force
+
+
+# 7.11
+# RUN powershell -Command \
+#   New-Item -ItemType "directory" -Path "c:\bin" ; \
+#   Copy-Item -Path c:\composer.phar -Destination c:\bin\composer.phar ; \
+#   Expand-Archive -Path c:\suitecrm.zip -DestinationPath C:\inetpub\wwwroot ; \
+#   Rename-Item -Path C:\inetpub\wwwroot\SuiteCRM-master -NewName "suitecrm" ; \
+#   ICACLS C:\inetpub\wwwroot\suitecrm /INHERITANCE:R ; \
+#   ICACLS C:\inetpub\wwwroot\suitecrm /T /C /L /Q /GRANT BUILTIN\IIS_IUSRS:F ; \
+#   ICACLS C:\inetpub\wwwroot\suitecrm /T /GRANT Administrators:F ; \
+#   ICACLS C:\inetpub\wwwroot\suitecrm /setowner BUILTIN\IIS_IUSRS /T /C /L /Q
+# RUN powershell -command rm -Recurse c:\*.zip -Force
+# RUN powershell -command rm -Recurse c:\*.phar -Force
