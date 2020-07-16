@@ -9,7 +9,7 @@ FROM nanoserver/mysql
 MAINTAINER git@ksa.llc
 
 # ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm/suitecrm-7.11.zip suitecrm.zip
-ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip
+ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip suitecrm.zip
 ADD https://getcomposer.org/download/1.10.8/composer.phar composer.phar
 
 RUN MySQL --user=root --password="2v3%ZRe#vHhG" --connect-expired-password -Bse "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Password123';" & \
