@@ -20,9 +20,10 @@ MySQL --user=root --password="Password123" -Bse "GRANT ALL PRIVILEGES ON `suitec
 MySQL --user=root --password="Password123" -Bse "SHOW DATABASES;"
 
 RUN powershell -Command \
-  Copy-Item -Path c:\composer.phar -Destination c:\bin\composer.phar \
+  New-Item -Path "c:\" -Name "bin" -ItemType "directory" ; \
+  Copy-Item -Path c:\composer.phar -Destination c:\bin\composer.phar ; \
   Expand-Archive -Path c:\suitecrm.zip -DestinationPath C:\inetpub\wwwroot ; \
-  Rename-Item -Path C:\inetpub\wwwroot\SuiteCRM-master -NewName suitecrm \
+  Rename-Item -Path C:\inetpub\wwwroot\SuiteCRM-master -NewName suitecrm ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /INHERITANCE:R ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /T /C /L /Q /GRANT BUILTIN\IIS_IUSRS:F ; \
   ICACLS C:\inetpub\wwwroot\suitecrm /T /GRANT Administrators:F ; \
