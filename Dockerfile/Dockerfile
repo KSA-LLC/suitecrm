@@ -1,5 +1,5 @@
-FROM nanoserver/mysql
-MAINTAINER nanoserver.es@gmail.com
+FROM spencerfirmllc/mysql
+MAINTAINER git@ksa.llc
 
 ADD https://wordpress.org/latest.zip wordpress.zip
 
