@@ -1,4 +1,4 @@
-FROM spencerfirmllc/mysql
+FROM nanoserver/mysql
 MAINTAINER git@ksa.llc
 
 ADD https://s3.amazonaws.com/assets.ksa.llc/suitecrm.zip suitecrm.zip
